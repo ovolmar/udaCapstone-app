@@ -1,16 +1,16 @@
 ## The Makefile includes instructions on environment setup and lint testing
 # VARS
-CLUSTER_NAME=tbd
-SSH_KEYNAME=tbd
-REGION=tbd
-DOCKER_IMAGE=tbd
-CONTAINER_PORT=tbd
-EXPOSED_PORT=tbd
+# CLUSTER_NAME=tbd
+# SSH_KEYNAME=tbd
+# REGION=tbd
+# DOCKER_IMAGE=tbd
+# CONTAINER_PORT=tbd
+# EXPOSED_PORT=tbd
 
 setup:
 	# Create python virtualenv & source it
-	# source ~/.devops/bin/activate
-	python3 -m venv ~/.devops
+	# source ~/.capstone/bin/activate
+	python3 -m venv ~/.capstone
 
 install:
 	# This should be run from inside a virtualenv
