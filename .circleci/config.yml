@@ -49,7 +49,7 @@ jobs:
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             eksctl version
-            eksctl create cluster --region=us-east-1 --zones=us-east-1,us-east-1b -f infrastructure/k8s-cluster.yml
+            eksctl create cluster -f infrastructure/k8s-cluster.yml
 
 
 workflows: 
