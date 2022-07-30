@@ -46,6 +46,7 @@ jobs:
       - run:
           name: Installing dependencies
           command: |
+            sudo apt-get -y install gzip
             curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             cd ~/repo
