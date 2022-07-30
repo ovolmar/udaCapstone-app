@@ -51,7 +51,7 @@ jobs:
             eksctl version
             pwd ; ls 
             cd ~/repo
-            ls
+            echo "We are on this directory $(pwd)"
 
 workflows: 
   default:
