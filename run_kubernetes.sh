@@ -11,3 +11,5 @@ kubectl get pods
 
 mypod=$(kubectl get pods  | grep $image_name  | awk '{print $1}')
 kubectl port-forward $mypod  8000:80
+
+#
