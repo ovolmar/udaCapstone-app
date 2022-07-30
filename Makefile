@@ -9,7 +9,7 @@
 
 setup:
 	# Create python virtualenv & source it
-	# source ~/.capstone/bin/activate
+	# source virtualenv.sh
 	python3 -m venv ~/.capstone
 
 install:
@@ -19,7 +19,7 @@ install:
 
 test:
 	# Additional, optional, tests could go here
-	#python -m pytest -vv --cov=myrepolib tests/*.py
+	python -m pytest -vv --cov=myrepolib *.py
 	#python -m pytest --nbval notebook.ipynb
 
 lint:

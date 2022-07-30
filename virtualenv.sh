@@ -1,7 +1,8 @@
 #!/bin/bash
-set -e 
-echo "********  To invoke this script use:  source $0 *********"
-VENV=".capstone"
-test -d ${VENV} || mkdir -v ${VENV}
+
+#echo "********  To invoke this script use:  source $0 *********"
+VENV="~/.capstone"
+echo ${VENV}
+#test -d ${VENV} || mkdir -v ${VENV}
 python3 -m venv ${VENV}
-source .capstone/bin/activate
+source ${VENV}/bin/activate
