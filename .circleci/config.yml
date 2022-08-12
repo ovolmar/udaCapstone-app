@@ -1,8 +1,23 @@
-
 version: 2.1
+commands:
+  destroy-eks-env:
+    description: Destroy EKS CF Stack
+    parameters:
+      workflowid:
+        type: string
+        default: ${ CIRCLE_WORKFLOW_ID:0:7 }
+    steps:
+      - run:
+        name: delete eks cluster
+        when: on_fail
+        command: |
+          curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
+          sudo mv /tmp/eksctl /usr/local/bin
+          eksctl delete cluster -f infrastructure/k8s-cluster.yml
+      
+# Adding a build command here with a revert-migrations
 
-
-
+#--------------------------------------------------------------------------------------------------------------------------          
 jobs:
   buildcontainer:
     docker:
@@ -46,9 +61,11 @@ jobs:
       - run:
           name: Installing dependencies
           command: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
-            eksctl delete cluster -f infrastructure/k8s-cluster.yml
+            eksctl create cluster -f infrastructure/k8s-cluster.yml
 
 
 workflows: 

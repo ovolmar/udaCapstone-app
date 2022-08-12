@@ -1,0 +1,4 @@
+
+ENV_NAME: "{{ lookup('env', 'ENVIRONMENT_NAME') }}"
+
+

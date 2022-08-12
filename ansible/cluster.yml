@@ -1,0 +1,9 @@
+---
+
+- hosts: prod
+  vars:
+    vars_files:
+      - groups_vars/all.yml
+  roles:
+    - deployUdaCap
+    - UdaCapSvc
