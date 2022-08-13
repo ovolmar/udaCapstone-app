@@ -6,6 +6,8 @@
 # DOCKER_IMAGE=tbd
 # CONTAINER_PORT=tbd
 # EXPOSED_PORT=tbd
+# image_name=capstone-light
+# dockerpath=ovolmar/${image_name}
 
 setup:
 	# Create python virtualenv & source it
@@ -30,4 +32,5 @@ lint:
 	# This should be run from inside a virtualenv
 	pylint --disable=R,C,W1203,W1202 app.py
 
-all: install lint test
+
+all: install lint test 

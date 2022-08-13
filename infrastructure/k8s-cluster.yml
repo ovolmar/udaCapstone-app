@@ -5,13 +5,6 @@ metadata:
   name: udacapstone-k8s-cluster
   region: us-east-1
 
-# vpc:
-#   subnets:
-#     private:
-#       us-east-1d: { id: subnet-06d77d27686e217df }
-#       us-east-1c: { id: subnet-0d1c62c4231401855 }
-
-
 ManagedNodeGroups:
   - name: NodeGroup-1
     minSize: 2
@@ -22,8 +15,8 @@ ManagedNodeGroups:
     instanceType: t2.micro
     ssh:
       allow: true
-      #publicKeyPath: ~/nanodegre/udapeople.pem
-      publickeyName:  udapeople.pem
+      publicKeyPath: ~/nanodegre/udapeople.pem
+      publickeyName:  udapeople
       sourcesecurityGroupIds: ["sg-02d6dd2d173beefee"]
     labels: {role: worker}
     tags:
@@ -33,16 +26,4 @@ ManagedNodeGroups:
     instanceType: t2.micro
     minSize: 2
     maxSize: 3
-
-  # - name: NodeGroup-1
-  #   instanceType: t2.micro
-  #   desiredCapacity: 8
-  #   ssh:
-  #     publiKeyPath: ~/nanodegre/udapeople.pem
-
-  # - name: NodeGroup-2
-  #   instanceType: t2.micro
-  #   desiredCapacity: 2
-  #   ssh:
-  #     publiKeyPath: ~/nanodegre/udapeople.pem
 

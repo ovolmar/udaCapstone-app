@@ -59,6 +59,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install authenticator
+          command: |
+            cd /tmp/
+            wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64 -o aws-iam-authenticator
+            sudo chmod +x /tmp/aws-iam-authenticator
+            suod mv /tmp/aws-iam-authenticator /usr/local/bin
+      - run:
           name: Installing dependencies
           command: |
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
