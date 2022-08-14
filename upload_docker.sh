@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-
-image_name='capstone-weather'
-dockerpath=ovolmar/${image_name}
+source ./shell-vars.conf # Variables File. 
 docker login 
 echo "Docker ID and Image: $dockerpath"
-docker tag $image_name $dockerpath
+docker tag $IMAGE_NAME $dockerpath
 docker push ${dockerpath}

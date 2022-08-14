@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: capstone
+spec:
+  containers:
+  - name: capstone
+    image: ovolmar/capstone-weather:latest
+    ports:
+    - containerPort: 80
