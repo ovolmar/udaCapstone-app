@@ -1,12 +1,31 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/ovolmar/udaCapstone-app/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/ovolmar/udaCapstone-app/tree/main)
-## Project Capstone [Cloud DevOps Engineer] 
+## Flask Weather App
 
-The purpose of this project is to showcase what was learned throughout the course. This project will include a CI/CD pipeline for a microservice application. 
+A simple web application to display the current weather in various cities, built with Python, Flask, SQLAlchemy, SQLite, HTML, and Bulma.
 
-### Setup
-- source virtualenv.sh
-- make install
-- make lint
-- make docker
+This project is intended to help familiarize myself with web development with Python and Flask, and is based on this [tutorial](https://www.youtube.com/watch?v=lWA0GgUN8kg).
 
-### Under Construction ...... 
+## Project Status
+This project is currently in development. Future updates wil include clickable tiles for time, news, etc.
+
+#### Example:   
+![Image description](https://github.com/jkaethee/Flask-Weather-App/blob/master/images/weather%20app.PNG)
+
+## Installation and Setup Instructions
+
+Clone this repository. You will need `python`, `virtualenv`, and `virtualenvwrapper-win` installed on your machine.
+
+#### Set up a virtual environment:
+
+`mkvirtualenv FlaskWeatherApp`
+
+#### Installation:
+
+`pip install flask`
+
+`pip install flask_sqlalchemy`
+
+`pip install requests`   
+
+#### To Start Server:
+
+`flask run`  

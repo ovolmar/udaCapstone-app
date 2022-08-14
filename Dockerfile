@@ -1,11 +1,10 @@
-FROM python:3.11-rc-bullseye
-LABEL author='o.volmar@gmail.com'
+FROM python:3.9-alpine
 WORKDIR /app
 COPY . /app/
 
-RUN pip install --no-cache-dir --upgrade pip &&\
-    pip install -r requirements.txt 
-EXPOSE 80
+Run pip install -r requirements.txt 
 
-CMD ["python", "app.py"]
+ENTRYPOINT ["python"]
+
+CMD ["app.py"]
 

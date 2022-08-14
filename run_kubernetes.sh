@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-image_name=capstone-light
+image_name='capstone-weather'
 dockerpath=ovolmar/${image_name}
 docker login
 echo "Let the bodies hit the ground"

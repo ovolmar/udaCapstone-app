@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-docker build -t capstone-light .
+IMAGE_NAME='capstone-weather'
+
+docker build -t $IMAGE_NAME .
 docker image ls 
-docker run -p 8000:80 capstone-light
+docker run -p 8000:80 $IMAGE_NAME
