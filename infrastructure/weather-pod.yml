@@ -7,4 +7,4 @@ spec:
   - name: capstone
     image: ovolmar/capstone-weather:latest
     ports:
-    - containerPort: 80
+    - containerPort: 8080
