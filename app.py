@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# pylint: disable=no-member
+
 import requests
 import string
 from flask import Flask, render_template, request, redirect, url_for, flash
