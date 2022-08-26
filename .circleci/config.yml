@@ -35,7 +35,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            #docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             sh run_docker.sh 
             sh upload_docker.sh
             python3 -m venv venv
@@ -91,4 +91,4 @@ workflows:
   default:
     jobs:
       - buildcontainer
-      - deploycluster
+      #- deploycluster
