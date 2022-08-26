@@ -1,5 +1,6 @@
 Flask
 requests
-flask_sqlalchemy
+Flask-SQLAlchemy
+#flask_sqlalchemy
 pylint-flask
 pylint-flask-sqlalchemy
