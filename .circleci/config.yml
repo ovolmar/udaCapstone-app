@@ -50,25 +50,43 @@ jobs:
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push ovolmar/${IMAGE_NAME}
-            sudo apt install python3.8-venv
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-            # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
       - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
-      # linting
+
+  lint:
+    docker:
+      - image: - image: python:3.7.3-stretch
+    steps:
+      - checkout 
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
-          name: run lint
+        name: "Installig Requirements"
+        command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          make install
+          # Install hadolint
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+          chmod +x /bin/hadolint
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+            # linting
+      - run:
+          name: "Launching Linting"
           command: |
             . venv/bin/activate 
             make lint 
-  
+
   deploycluster:
     docker:
       - image: cimg/aws:2022.06
@@ -105,4 +123,5 @@ workflows:
   default:
     jobs:
       - buildcontainer
+      - lint
       #- deploycluster
