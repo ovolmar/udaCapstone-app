@@ -85,7 +85,7 @@ jobs:
           name: "Launching Linting"
           command: |
             . venv/bin/activate 
-            make lint 
+            make all
 
   deploycluster:
     docker:
