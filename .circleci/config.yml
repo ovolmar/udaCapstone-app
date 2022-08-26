@@ -42,20 +42,20 @@ jobs:
           name: install dependencies
           command: |
             touch ".env"
-            echo DOCKER_LOGIN=$DOCKER_LOGIN >> ".env"
-            echo DOCKER_PASSWORD=$DOCKER_PASSWORD  >> ".env"
-            echo IMAGE_NAME=$IMAGE_NAME >> ".env"
+            echo DOCKER_LOGIN=${DOCKER_LOGIN} >> ".env"
+            echo DOCKER_PASSWORD=${DOCKER_PASSWORD}  >> ".env"
+            echo IMAGE_NAME=${IMAGE_NAME} >> ".env"
             source ".env"
-            #docker login $REGISTRY -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker build -t $IMAGE_NAME
+            #docker login $REGISTRY -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker build -t ${IMAGE_NAME}
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker push ovolmar/${IMAGE_NAME}
-            # python3 -m venv venv
-            # . venv/bin/activate
-            # make install
-            # # Install hadolint
-            # wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            # chmod +x /bin/hadolint
+            python3 -m venv venv
+            . venv/bin/activate
+            make install
+            # Install hadolint
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
       - save_cache:
           paths:
             - ./venv
