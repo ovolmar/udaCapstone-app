@@ -22,7 +22,10 @@ jobs:
   buildcontainer:
     docker:
       # Use the same Docker base as the project
-      - image: docker:17.05.0-ce-git
+      - image: cimg/go:1.17
+        auth:
+          username: $DOCKER_LOGIN
+          password: $DOCKER_PASSWORD
     working_directory: ~/repo
     steps:
       - checkout
@@ -32,6 +35,9 @@ jobs:
             - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - run:
           name: install dependencies
           command: |
@@ -40,7 +46,7 @@ jobs:
             echo DOCKER_PASSWORD=$DOCKER_PASSWORD  >> ".env"
             echo IMAGE_NAME=$IMAGE_NAME >> ".env"
             source ".env"
-            docker login $REGISTRY -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            #docker login $REGISTRY -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker build -t $IMAGE_NAME
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker push ovolmar/${IMAGE_NAME}
