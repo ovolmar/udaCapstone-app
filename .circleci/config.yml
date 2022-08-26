@@ -48,7 +48,7 @@ jobs:
             source ".env"
             docker build -t ${IMAGE_NAME} .
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
-            docker login $REGISTRY -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
+            docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push ovolmar/${IMAGE_NAME}
             # python3 -m venv venv
             # . venv/bin/activate
