@@ -40,7 +40,7 @@ jobs:
             echo DOCKER_PASSWORD=$DOCKER_PASSWORD  >> ".env"
             echo IMAGE_NAME=$IMAGE_NAME >> ".env"
             source ".env"
-            docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
+            docker login $REGISTRY -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
             docker build -t $IMAGE_NAME
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker push ovolmar/${IMAGE_NAME}
