@@ -102,6 +102,18 @@ jobs:
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             eksctl create cluster -f infrastructure/k8s-cluster.yml --dry-run
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: get cluster credz
+          command: |
+            eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
+      - persist_to_workspace:
+          root: ~/
+          path:
+            - kube-cred.log
+
       - run: 
           name: Authentication Handshake
           command: |
