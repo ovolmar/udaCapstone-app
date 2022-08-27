@@ -118,4 +118,4 @@ workflows:
     jobs:
       - buildcontainer
       - lint
-      #- deploycluster
+      - deploycluster
