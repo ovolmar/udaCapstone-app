@@ -51,7 +51,7 @@ jobs:
         auth:
           username: $DOCKER_LOGIN
           password: $DOCKER_PASSWORD
-    working_directory: ~/repo
+    working_directory: ~/
     steps:
       - checkout
       # Download and cache dependencies
@@ -83,7 +83,7 @@ jobs:
   deploycluster:
     docker:
       - image: cimg/aws:2022.06
-     #working_directory: ~/repo
+     
     steps:
       - checkout
       # - run:
@@ -102,12 +102,16 @@ jobs:
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             eksctl create cluster -f infrastructure/k8s-cluster.yml
+            kubectl get nodes
+            kubectl apply -f infrastructure/weather-pod.yml
+            kubectl expose deployment capstone-load-balancer --type=LoadBalancer --name=capstone-weather
       - attach_workspace:
           at: ~/
 
       - run:
           name: get cluster credz
           command: |
+            mkdir 
             eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
       - persist_to_workspace:
           root: ~/
@@ -118,11 +122,11 @@ jobs:
           name: Authentication Handshake
           command: |
             aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name udacapstone-k8s-cluster
-      - run: 
-          name: Exposing application 
-          command: |
-            kubectl apply -f infrastructure/weather-pod.yml
-            kubectl expose deployment capstone-load-balancer --type=LoadBalancer --name=capstone-weather
+      # - run: 
+      #     name: Exposing application 
+      #     command: |
+      #       kubectl apply -f infrastructure/weather-pod.yml
+      #       kubectl expose deployment capstone-load-balancer --type=LoadBalancer --name=capstone-weather
             
 
 workflows: 
