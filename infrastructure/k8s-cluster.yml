@@ -10,7 +10,7 @@ ManagedNodeGroups:
     minSize: 2
     maxSize: 6
     desiredCapacity: 3
-    availabilityZones: ["us-east-1d", "us-east-1c"] 
+    availabilityZones: ["us-east-1a", "us-east-1b"] 
     VolumeSize: 20
     instanceType: t2.micro
     ssh:
