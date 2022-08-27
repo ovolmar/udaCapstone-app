@@ -83,7 +83,7 @@ jobs:
   deploycluster:
     docker:
       - image: cimg/aws:2022.06
-    working_directory: ~/repo
+    # working_directory: ~/repo
     steps:
       - checkout
       # - run:
