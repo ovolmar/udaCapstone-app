@@ -83,7 +83,7 @@ jobs:
   deploycluster:
     docker:
       - image: cimg/aws:2022.06
-    # working_directory: ~/repo
+     working_directory: ~/repo
     steps:
       - checkout
       # - run:
@@ -111,7 +111,7 @@ jobs:
             eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
       - persist_to_workspace:
           root: ~/
-          path:
+          paths:
             - kube-cred.log
 
       - run: 
