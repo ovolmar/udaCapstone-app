@@ -21,6 +21,7 @@ commands:
 jobs:
   lint:
     docker:
+    working_directory: /tmp
       - image: python:3.7.3-stretch
     steps:
       - checkout 
@@ -51,7 +52,7 @@ jobs:
         auth:
           username: $DOCKER_LOGIN
           password: $DOCKER_PASSWORD
-    working_directory: ~/
+    working_directory: /tmp
     steps:
       - checkout
       # Download and cache dependencies
