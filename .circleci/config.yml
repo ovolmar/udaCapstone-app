@@ -80,10 +80,9 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
   deploycluster:
-  working_directory: ~/
     docker:
       - image: cimg/aws:2022.06
-     
+    working_directory: ~/
     steps:
       - checkout
       # - run:
@@ -112,14 +111,18 @@ jobs:
       - run:
           name: get cluster credz
           command: |
-            mkdir ~/mytoken
-            cp ~/.kube/config ~/mytoken/ 
+            mkdir ~/myArtifacts
+            cp ~/.kube/config ~/myArtifacts/ 
             eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
+            cp ~/kube-cred.log ~/myArtifacts/
       - persist_to_workspace:
           root: ~/
           paths:
             - kube-cred.log
-            - mytoken/config
+            - myArtifacts/config
+      - store_artifacts:
+          path: ~/myArtifacts
+
 
       - run: 
           name: Authentication Handshake
