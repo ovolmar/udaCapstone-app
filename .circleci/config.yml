@@ -120,8 +120,7 @@ jobs:
             cp ~/.kube/config ~/myArtifacts/ 
             eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
             cp ~/kube-cred.log ~/myArtifacts/
-       - attach_workspace:
-          at: ~/     
+   
       - persist_to_workspace:
           root: ~/
           paths:
