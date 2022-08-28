@@ -26,6 +26,3 @@ ManagedNodeGroups:
     instanceType: t2.micro
     minSize: 2
     maxSize: 3
-
-secretsEncryption:
-  keyARN: "arn:aws:iam::294538121822:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
