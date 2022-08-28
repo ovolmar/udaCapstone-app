@@ -9,7 +9,7 @@ ManagedNodeGroups:
   - name: NodeGroup-1
     minSize: 2
     maxSize: 6
-    desiredCapacity: 3
+    desiredCapacity: 1
     availabilityZones: ["us-east-1a", "us-east-1b"] 
     VolumeSize: 20
     instanceType: t2.micro
@@ -27,3 +27,5 @@ ManagedNodeGroups:
     minSize: 2
     maxSize: 3
 
+secretsEncryption:
+  keyARN: "arn:aws:iam::294538121822:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
