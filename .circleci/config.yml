@@ -20,8 +20,8 @@ commands:
 #--------------------------------------------------------------------------------------------------------------------------          
 jobs:
   lint:
-    docker:
     working_directory: /tmp
+    docker:
       - image: python:3.7.3-stretch
     steps:
       - checkout 
