@@ -82,7 +82,7 @@ jobs:
   deploycluster:
     docker:
       - image: cimg/aws:2022.06
-    working_directory: ~/
+    working_directory: ~/tmp
     steps:
       - checkout
 
@@ -107,15 +107,15 @@ jobs:
             kubectl apply -f infrastructure/weather-pod.yml
             kubectl expose deployment capstone-load-balancer --type=LoadBalancer --name=capstone-weather
       - attach_workspace:
-          at: ~/
+          at: ~/tmp
 
       - run:
           name: get cluster credz
           command: |
-            mkdir ~/myArtifacts
-            cp ~/.kube/config ~/myArtifacts/ 
+            mkdir ~/tmp/myArtifacts
+            cp ~/.kube/config ~/tmp/myArtifacts/ 
             eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
-            cp ~/kube-cred.log ~/myArtifacts/
+            cp ~/kube-cred.log ~/tmp/myArtifacts/
    
       - persist_to_workspace:
           root: ~/
@@ -123,7 +123,7 @@ jobs:
             - kube-cred.log
             - myArtifacts/config
       - store_artifacts:
-          path: ~/myArtifacts
+          path: ~/tmp/myArtifacts
 
 
       - run: 
