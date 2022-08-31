@@ -94,13 +94,21 @@ jobs:
       #       sudo chmod +x /tmp/aws-iam-authenticator
       #       sudo mv /tmp/aws-iam-authenticator /usr/local/bin
       - run:
-          name: Installing dependencies
+          name: Connect to cluster
+          command: |
+              aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
+      - run:
+          name: Install kubectl and eksctl
           command: |
             aws --version
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
+
+      - run: 
+          name: Build EKS cluster
+          command: |
             eksctl create cluster -f infrastructure/k8s-cluster.yml
             aws eks update-kubeconfig --region us-east-1 --name udacapstone-k8s-cluster
             kubectl get nodes
