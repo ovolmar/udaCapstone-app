@@ -1,33 +1,21 @@
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: capstone
-# spec:
-#   containers:
-#   - name: capstone
-#     image: ovolmar/capstone-weather:latest
-#     ports:
-#     - containerPort: 8080
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: capstone-weather-deployment
   labels:
-    app.kubernetes.io/name: capstone-load-balancer
-  name: capstone-load-balancer
+    app: capstone-weather
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: capstone-load-balancer
+      app: capstone-weather
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: capstone-load-balancer
+        app: capstone-weather
     spec:
       containers:
-      - image: ovolmar/capstone-weather:latest
-        name: capstone-weather
+      - name: capstone-weather
+        image: ovolmar/capstone-weather:latest
         ports:
         - containerPort: 8080
-   

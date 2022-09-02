@@ -12,7 +12,7 @@ ManagedNodeGroups:
     desiredCapacity: 1
     availabilityZones: ["us-east-1a", "us-east-1b"] 
     VolumeSize: 20
-    instanceType: t2.micro
+    instanceType: m5.large
     ssh:
       allow: true
       publicKeyPath: ~/nanodegre/udapeople.pem
@@ -23,6 +23,6 @@ ManagedNodeGroups:
       nodegroup-role: worker
       
   - name: NodeGroup-2
-    instanceType: t2.micro
+    instanceType: m5.large
     minSize: 2
     maxSize: 3
