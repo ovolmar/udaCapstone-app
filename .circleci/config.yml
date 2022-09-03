@@ -96,9 +96,13 @@ jobs:
       - run:
           name: Loading Latest AWSCLI
           command: |
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
+            if [ -f /usr/local/bin/aws ]; then
+              echo "AWS is loaded moving on"
+            else 
+              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+              unzip awscliv2.zip
+              sudo ./aws/install
+            fi 
 
       - run:
           name: Install kubectl and eksctl
@@ -124,7 +128,7 @@ jobs:
             kubectl create -f infrastructure/clusterip.yml
             kubectl expose deployment capstone-load-balancer --type=ClusterIP --name=capstone-weather-service-cluster-ip
             kubectl expose deployment capstone-weather-deployment --type=NodePort --name=capstone-weather-service-nodeport
-            
+
       - run:
           name: getting pods
           command: |
