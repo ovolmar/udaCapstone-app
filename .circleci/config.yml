@@ -94,9 +94,12 @@ jobs:
       #       sudo chmod +x /tmp/aws-iam-authenticator
       #       sudo mv /tmp/aws-iam-authenticator /usr/local/bin
       - run:
-          name: Connect to cluster
+          name: Loading Latest AWSCLI
           command: |
-              aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
       - run:
           name: Install kubectl and eksctl
           command: |
@@ -111,27 +114,41 @@ jobs:
           command: |
             eksctl create cluster -f infrastructure/k8s-cluster.yml
             aws eks update-kubeconfig --region us-east-1 --name udacapstone-k8s-cluster
+            /usr/local/bin/aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
             kubectl get nodes
-            kubectl apply -f infrastructure/weather-pod.yml
-            kubectl expose deployment capstone-load-balancer --type=LoadBalancer --name=capstone-weather
-      - attach_workspace:
-          at: ~/tmp
-
+      
       - run:
-          name: get cluster credz
+          name: launching pods
           command: |
-            mkdir ~/tmp/myArtifacts
-            cp ~/.kube/config ~/tmp/myArtifacts/ 
-            eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
-            cp ~/kube-cred.log ~/tmp/myArtifacts/
+            kubectl apply -f infrastructure/weather-pod.yml
+            kubectl create -f infrastructure/clusterip.yml
+            kubectl expose deployment capstone-load-balancer --type=ClusterIP --name=capstone-weather-service-cluster-ip
+            kubectl expose deployment capstone-weather-deployment --type=NodePort --name=capstone-weather-service-nodeport
+            
+      - run:
+          name: getting pods
+          command: |
+            kubectl get pods
+            kubectl get service capstone-weather-service-cluster-ip
+            kubectl expose deployment nginx-deployment  --type=NodePort  --name=nginx-service-nodeport
+
+
+
+      # - run:
+      #     name: get cluster credz
+      #     command: |
+      #       mkdir ~/tmp/myArtifacts
+      #       cp ~/.kube/config ~/tmp/myArtifacts/ 
+      #       eksctl utils write-kubeconfig --cluster=udacapstone-k8s-cluster --kubeconfig=~/kube-cred.log --set-kubeconfig-context=true
+      #       cp ~/kube-cred.log ~/tmp/myArtifacts/
    
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - kube-cred.log
-            - myArtifacts/config
-      - store_artifacts:
-          path: ~/tmp/myArtifacts
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - kube-cred.log
+      #       - myArtifacts/config
+      # - store_artifacts:
+      #     path: ~/tmp/myArtifacts
 
 
       - run: 
