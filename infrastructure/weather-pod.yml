@@ -15,7 +15,8 @@ spec:
         app: capstone-weather
     spec:
       containers:
-      - name: capstone-weather
-        image: ovolmar/capstone-weather:latest
-        ports:
-        - containerPort: 8080
+        - name: capstone-weather
+          image: ovolmar/capstone-weather:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080

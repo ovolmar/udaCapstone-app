@@ -4,25 +4,35 @@ kind: ClusterConfig
 metadata:
   name: udacapstone-k8s-cluster
   region: us-east-1
-
-ManagedNodeGroups:
-  - name: NodeGroup-1
-    minSize: 2
-    maxSize: 6
-    desiredCapacity: 1
-    availabilityZones: ["us-east-1a", "us-east-1b"] 
-    VolumeSize: 20
-    instanceType: m5.large
-    ssh:
-      allow: true
-      publicKeyPath: ~/nanodegre/udapeople.pem
-      publickeyName:  udapeople
-      sourcesecurityGroupIds: ["sg-02d6dd2d173beefee"]
-    labels: {role: worker}
-    tags:
-      nodegroup-role: worker
-      
-  - name: NodeGroup-2
-    instanceType: m5.large
+nodeGroups:
+  - name: ng-1
+    instanceType: t2.medium
+    amiFamily: AmazonLinux2
     minSize: 2
     maxSize: 3
+    volumeSize: 80
+    ssh:
+      allow: true
+      publicKeyName: udapeople
+
+# ManagedNodeGroups:
+#   - name: NodeGroup-1
+#     minSize: 2
+#     maxSize: 6
+#     desiredCapacity: 1
+#     availabilityZones: ["us-east-1a", "us-east-1b"] 
+#     VolumeSize: 20
+#     instanceType: m5.large
+#     ssh:
+#       allow: true
+#       publicKeyPath: ~/nanodegre/udapeople.pem
+#       publickeyName:  udapeople
+#       sourcesecurityGroupIds: ["sg-02d6dd2d173beefee"]
+#     labels: {role: worker}
+#     tags:
+#       nodegroup-role: worker
+      
+#   - name: NodeGroup-2
+#     instanceType: m5.large
+#     minSize: 2
+#     maxSize: 3

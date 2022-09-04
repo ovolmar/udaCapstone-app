@@ -14,7 +14,21 @@ commands:
             curl --silent --location https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz | tar -xz -C /tmp
             sudo mv /tmp/eksctl /usr/local/bin
             eksctl delete cluster -f infrastructure/k8s-cluster.yml
-      
+  cluster-status:
+    description: Get cluster status 
+    parameters:
+      workflowid:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
+    steps:
+      - run:
+          name: cluster status
+          command: |
+            /usr/local/bin/aws eks describe-cluster \
+            --region us-east-2 \
+            --name udacapstone-k8s-cluster \
+            --query "cluster.status"
+
 # Adding a build command here with a revert-migrations
 #
 #--------------------------------------------------------------------------------------------------------------------------          
@@ -116,17 +130,15 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
-            eksctl create cluster -f infrastructure/k8s-cluster.yml
-            aws eks update-kubeconfig --region us-east-1 --name udacapstone-k8s-cluster
-            /usr/local/bin/aws eks --region $AWS_DEFAULT_REGION update-kubeconfig --name $CLUSTER_NAME
-            kubectl get nodes
+            status=$(/usr/local/bin/aws eks describe-cluster --region us-east-2 --name udacapstone-k8s-cluster --query "cluster.status" )
+            if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
       
       - run:
           name: launching pods
           command: |
             kubectl apply -f infrastructure/weather-pod.yml
             kubectl create -f infrastructure/clusterip.yml
-            kubectl expose deployment capstone-load-balancer --type=ClusterIP --name=capstone-weather-service-cluster-ip
+            kubectl expose deployment capstone-weather-deployment --type=ClusterIP --name=capstone-weather-service-cluster-ip
             kubectl expose deployment capstone-weather-deployment --type=NodePort --name=capstone-weather-service-nodeport
 
       - run:
