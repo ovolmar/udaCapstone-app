@@ -137,6 +137,7 @@ jobs:
       - run:
           name: launching pods
           command: |
+            /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region us-east-1
             kubectl apply -f infrastructure/weather-pod.yml
             kubectl create -f infrastructure/clusterip.yml
             kubectl expose deployment capstone-weather-deployment --type=ClusterIP --name=capstone-weather-service-cluster-ip
