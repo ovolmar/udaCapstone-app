@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone-weather-deployment
+  name: sample-flask-deployment
   labels:
-    app: capstone-weather
+    app: sample-flask
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: capstone-weather
+      app: sample-flask
   template:
     metadata:
       labels:
-        app: capstone-weather
+        app: sample-flask
     spec:
       containers:
-        - name: capstone-weather
-          image: ovolmar/capstone-weather:latest
+        - name:  sample-flask
+          image: ovolmar/flask-sample:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
