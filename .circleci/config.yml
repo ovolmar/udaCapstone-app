@@ -130,25 +130,18 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
-            status=$(/usr/local/bin/aws eks describe-cluster --region us-east-1 --name udacapstone-k8s-cluster --query "cluster.status" )
+            status=$(/usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" )
             if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
             kubectl get nodes
       
       - run:
           name: launching pods
           command: |
-            /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region us-east-1
+            /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region ${AWS_DEFAULT_REGION} 
             kubectl apply -f infrastructure/weather-pod.yml
             kubectl create -f infrastructure/clusterip.yml
             kubectl expose deployment capstone-weather-deployment --type=ClusterIP --name=capstone-weather-service-cluster-ip
             kubectl expose deployment capstone-weather-deployment --type=NodePort --name=capstone-weather-service-nodeport
-
-      - run:
-          name: getting pods
-          command: |
-            kubectl get pods
-            kubectl get service capstone-weather-service-cluster-ip
-            kubectl expose deployment nginx-deployment  --type=NodePort  --name=nginx-service-nodeport
 
 
 
@@ -169,10 +162,10 @@ jobs:
       #     path: ~/tmp/myArtifacts
 
 
-      - run: 
-          name: Authentication Handshake
-          command: |
-            aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name udacapstone-k8s-cluster
+      # - run: 
+      #     name: Authentication Handshake
+      #     command: |
+      #       aws eks --region ${AWS_DEFAULT_REGION} update-kubeconfig --name udacapstone-k8s-cluster
       # - run: 
       #     name: Exposing application 
       #     command: |
