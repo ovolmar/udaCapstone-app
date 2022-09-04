@@ -132,6 +132,7 @@ jobs:
           command: |
             status=$(/usr/local/bin/aws eks describe-cluster --region us-east-2 --name udacapstone-k8s-cluster --query "cluster.status" )
             if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
+            kubectl get nodes
       
       - run:
           name: launching pods
