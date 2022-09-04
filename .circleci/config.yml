@@ -137,6 +137,7 @@ jobs:
     docker:
       - image: cimg/aws:2022.06
     steps:
+      - checkout 
       - run:
           name: launching pods
           command: |
@@ -182,4 +183,6 @@ workflows:
       - buildcontainer
       - lint
       - deploycluster
+          requires: [buildcontainer]
       - pod-launcher
+          requires: [deploycluster]
