@@ -144,8 +144,8 @@ jobs:
             /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region ${AWS_DEFAULT_REGION} 
             kubectl apply -f infrastructure/weather-pod.yml
             kubectl create -f infrastructure/clusterip.yml
-            kubectl expose deployment capstone-weather-deployment --type=ClusterIP --name=capstone-weather-service-cluster-ip
-            kubectl expose deployment capstone-weather-deployment --type=NodePort --name=capstone-weather-service-nodeport
+            kubectl expose deployment sample-flask-deployment --type=ClusterIP --name=sample-flask-service-cluster-ip
+            kubectl expose deployment sample-flask-deployment --type=NodePort --name=sample-flask-service-nodeport
 
 
 
