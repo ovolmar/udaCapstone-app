@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: git
+        app: flask-green
     spec:
       containers:
         - name:  flask-green
