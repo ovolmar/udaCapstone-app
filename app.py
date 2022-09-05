@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # pylint: disable=no-member
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Capstone Web App with Python Flask!'
+
+    return render_template('index.html', title="Deployment:---->", color="blue")
+    #return 'Project Capstone Developed by: Osvaldo Volmar!'
 
 
 if __name__ == '__main__':

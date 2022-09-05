@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-flask-deployment
+  name: flask-green-deployment
   labels:
-    app: sample-flask
+    app: flask-green
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: sample-flask
+      app: flask-green
   template:
     metadata:
       labels:
-        app: sample-flask
+        app: git
     spec:
       containers:
-        - name:  sample-flask
-          image: ovolmar/flask-sample:latest
+        - name:  flask-green
+          image: ovolmar/flask-green:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
