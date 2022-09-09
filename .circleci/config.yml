@@ -85,10 +85,10 @@ jobs:
             echo IMAGE_NAME=${IMAGE_NAME} >> ".env"
             source ".env"
             docker build -t ${IMAGE_NAME} .
-            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}:${CIRCLE_SHA1}
+            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
-            docker push ovolmar/${IMAGE_NAME}:${CIRCLE_SHA1}
-      - save_cache:
+            docker push ovolmar/${IMAGE_NAME}
+      - save_cahe:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
@@ -142,10 +142,11 @@ jobs:
           name: launching pods
           command: |
             /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region ${AWS_DEFAULT_REGION} 
-            kubectl apply -f infrastructure/weather-pod.yml
-            kubectl create -f infrastructure/clusterip.yml
-            kubectl expose deployment sample-flask-deployment --type=ClusterIP --name=sample-flask-service-cluster-ip
-            kubectl expose deployment sample-flask-deployment --type=NodePort --name=sample-flask-service-nodeport
+            kubectl apply -f infrastructure/bluepod.yml
+            kubectl apply -f infrastructure/blue-service.yml
+            kubectl apply -f infrastructure/ingress.yml
+           # kubectl expose deployment sample-flask-deployment --type=ClusterIP --name=sample-flask-service-cluster-ip
+            #kubectl expose deployment sample-flask-deployment --type=NodePort --name=sample-flask-service-nodeport
 
 
 
@@ -182,7 +183,7 @@ workflows:
     jobs:
       - buildcontainer
       - lint
-      # - deploycluster:
-      #     requires: [buildcontainer]
-      # - pod-launcher:
-      #     requires: [deploycluster]
+      - deploycluster:
+          requires: [buildcontainer]
+      - pod-launcher:
+          requires: [deploycluster]

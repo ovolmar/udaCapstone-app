@@ -1,11 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-blue-deployment
-  labels:
-    app: flask-blue
+  name: flask-blue
+
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: flask-blue
@@ -13,10 +12,18 @@ spec:
     metadata:
       labels:
         app: flask-blue
+
     spec:
       containers:
-        - name:  flask-blue
+        - name: flask-blue-container
           image: ovolmar/${IMAGE_NAME}
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           ports:
             - containerPort: 8080
+              protocol: TCP
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+
