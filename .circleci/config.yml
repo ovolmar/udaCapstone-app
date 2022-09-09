@@ -67,10 +67,8 @@ jobs:
           password: $DOCKER_PASSWORD
     steps:
       - checkout
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            #- buildcontainer
             - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
@@ -86,7 +84,7 @@ jobs:
             echo IMAGE_NAME=${IMAGE_NAME} >> ".env"
             source ".env"
             docker build -t ${IMAGE_NAME} .
-            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}:${TAG}
+            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}:latest
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push ovolmar/${IMAGE_NAME}
       - save_cache:
