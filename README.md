@@ -9,9 +9,10 @@ To build this project locally follow the instructions below.
 - make lint
 
 To update the container image modify the variables  on the shell-vars.conf file then execute the following scripts.
-* ./run_docker.sh ; ./upload_docker.sh
 
-Minikube start then ./run_kubernetes
+- ./run_docker.sh ; ./upload_docker.sh
+- minikube start 
+- ./run_kubernetes
 
 
-### Under Construction ...... 
+
