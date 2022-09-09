@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-blue-container
-          image: ovolmar/${IMAGE_NAME}
+          image: ovolmar/flask-blue:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
