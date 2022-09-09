@@ -86,7 +86,7 @@ jobs:
             echo IMAGE_NAME=${IMAGE_NAME} >> ".env"
             source ".env"
             docker build -t ${IMAGE_NAME} .
-            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
+            docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}:${TAG}
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push ovolmar/${IMAGE_NAME}
       - save_cache:
