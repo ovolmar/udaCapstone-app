@@ -17,3 +17,16 @@ spec:
                   number: 8080
             path: /
             pathType: Prefix
+            
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadbalancer-fl-blue
+spec:
+  type: LoadBalancer
+  selector:
+    app: flask-blue
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

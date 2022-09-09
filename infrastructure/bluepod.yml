@@ -17,7 +17,7 @@ spec:
       containers:
         - name: flask-blue-container
           image: ovolmar/flask-blue:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
               protocol: TCP
