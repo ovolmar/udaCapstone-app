@@ -25,7 +25,7 @@ commands:
           name: cluster status
           command: |
             /usr/local/bin/aws eks describe-cluster \
-            --region us-east-2 \
+            --region {AWS_DEFAULT_REGION}  \
             --name udacapstone-k8s-cluster \
             --query "cluster.status"
 
