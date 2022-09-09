@@ -129,9 +129,10 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
+
             # status=$(/usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2>/dev/null)
-            # if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
-           eksctl create cluster -f infrastructure/k8s-cluster.yml 
+            #if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
+            eksctl create cluster -f infrastructure/k8s-cluster.yml 
             # kubectl get nodes
   pod-launcher:
     docker:
