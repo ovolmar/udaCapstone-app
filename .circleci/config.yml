@@ -70,7 +70,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - buildcontainer
+            #- buildcontainer
             - v1-dependencies-{{ checksum "requirements.txt" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
@@ -89,7 +89,7 @@ jobs:
             docker tag $IMAGE_NAME ovolmar/${IMAGE_NAME}
             docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASSWORD}
             docker push ovolmar/${IMAGE_NAME}
-      - save_cahe:
+      - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
