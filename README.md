@@ -34,10 +34,13 @@ To update the deployment you could either run kubectl apply -f infrastructure/gr
 
 
 To verify that the app is working, write your deployment's IP into your browser using port 80, like
-`http://localhost:80` or `http://LOAD_BALANCER_IP:80` (according to your environment).
+```
+ curl $(kubectl get svc  loadbalancer-fl-blue | awk '{print $4}'|grep -v EXTERNAL-IP):8080
 
-Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP:80`
+ `http://localhost:80` or `http://LOAD_BALANCER_IP:80` (according to your environment).
 
+ Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP:80`
+```
 ### CI/CD Tools and Cloud Services
 
 * [Circle CI](https://www.circleci.com) - Cloud-based CI/CD service
@@ -61,3 +64,7 @@ Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP
 | IMAGE_NAME | Docker image name |
 |REGISTRY_URL | Your docker registry |
 | AWS_PEM_KEY | _redacted_** |
+
+
+PROJECT URL
+:rotating_light: http://affd95339c4f045d1a20c945dd89a9ec-1276444541.us-east-1.elb.amazonaws.com:8080/  	:rotating_light:
