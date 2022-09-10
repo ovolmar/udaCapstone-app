@@ -49,7 +49,7 @@ Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP
 | VARIABLE | VALUE |
 | ------ | ------ |
 | AMI | _redacted_** |
-| ARN | _redacted_** |
+| ARN | arn:partition:service:region:account-id:resource-id |
 | AWS_ACCESS_KEY_ID | _redacted_** |
 | AWS_DEFAULT_REGION | _redacted_** |
 | AWS_SECRET_ACCESS_KEY | _redacted_** |
