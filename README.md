@@ -44,3 +44,17 @@ Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP
 * [AWS CLI](https://aws.amazon.com/cli/) - Command-line tool for AWS
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/) - a command-line tool to control Kubernetes clusters
 * [Docker Hub](https://hub.docker.com/repository/docker/ovolmar/flask-blue) - Container images repository service
+
+#### CicleCI Variables
+|| VARIABLE | VALUE |
+| ------ | ------ |
+| AMI | _redacted_**|
+| ARN | _redacted_** |
+| AWS_ACCESS_KEY_ID | _redacted_** |
+| AWS_DEFAULT_REGION | _redacted_** |
+| AWS_SECRET_ACCESS_KEY | _redacted_** |
+| DOCKER_LOGIN | _redacted_** |
+| DOCKER_TOKEN| _redacted_** |
+| IMAGE_NAME | Docker image name |
+|REGISTRY_URL | Your docker registry |
+| AWS_PEM_KEY | _redacted_** |
