@@ -1,7 +1,28 @@
 ---
 
 - hosts: localhost
+  gather_facts: no
+  vars:
+    awsCLI: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    myCLI: /tmp/awscli.zip
+    latestAWSCLI: /usr/local/bin/aws
+    AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION' )}}"
   tasks:
+
+    - name: "Download AWSCLI Latest"
+      get_url: url="{{ awsCLI }}" dest="{{myCLI}}"
+
+    - name: "Extracting latest awscli"
+      unarchive: src="{{myCLI}}" dest=/tmp
+    
+    - name: "Check if AWSCLI is already installed"
+      stat: path="{{ latestAWSCLI }}"
+      register: new_CLI
+    
+    - name: "Installing the app"
+      command: sh /tmp/aws/install
+      when: new_CLI.stat.exists == False
+
     - name: "Fetching kubectl"
       shell: |
         curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -9,7 +30,7 @@
           
     - name: "Deploying application to EKS"
       shell: |
-        /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region ${AWS_DEFAULT_REGION} 
+        /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region '{{ AWS_DEFAULT_REGION }}'
         kubectl apply -f infrastructure/bluepod.yml
         kubectl apply -f infrastructure/blue-services.yml
         kubectl apply -f infrastructure/ingress.yml

@@ -140,7 +140,7 @@ jobs:
       - run:
           name: running ansible
           command: |
-            pip install ansible
+            pip install ansible 
             ansible-playbook ansible/cluster.yml
     # docker:
     #   - image: cimg/aws:2022.06
