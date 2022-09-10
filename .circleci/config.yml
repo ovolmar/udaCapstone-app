@@ -144,7 +144,7 @@ jobs:
             kubectl apply -f infrastructure/bluepod.yml
             kubectl apply -f infrastructure/blue-services.yml
             kubectl apply -f infrastructure/ingress.yml
-            kubectl expose deployment flask-blue --type=ClusterIP --name=service-cluser-ip
+            kubectl expose deployment flask-capstone --type=ClusterIP --name=service-cluser-ip
             sleep 40
             kubectl get svc
   smoke-test:

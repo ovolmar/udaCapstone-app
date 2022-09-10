@@ -30,6 +30,8 @@ Now you can check your deployment:
 kubectl get svc,deployment
 ```
 
+
+
 To verify that the app is working, write your deployment's IP into your browser using port 80, like
 `http://localhost:80` or `http://LOAD_BALANCER_IP:80` (according to your environment).
 
