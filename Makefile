@@ -1,13 +1,7 @@
-## The Makefile includes instructions on environment setup and lint testing
-# VARS
-# CLUSTER_NAME=tbd
-# SSH_KEYNAME=tbd
-# REGION=tbd
-# DOCKER_IMAGE=tbd
-# CONTAINER_PORT=tbd
-# EXPOSED_PORT=tbd
-# image_name=capstone-light
-# dockerpath=ovolmar/${image_name}
+##### The Makefile includes instructions on environment setup and lint testing
+####
+##
+#
 
 setup:
 	# Create python virtualenv & source it
