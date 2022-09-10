@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: flask-green
+        version: "1.10"
     spec:
       containers:
         - name:  flask-green

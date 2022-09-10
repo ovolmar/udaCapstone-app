@@ -129,11 +129,8 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
-
-            status=$(/usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" )
-            if [ "$status" == '"ACTIVE"' ]; then exit 0 ; else eksctl create cluster -f infrastructure/k8s-cluster.yml ; fi
-            #eksctl create cluster -f infrastructure/k8s-cluster.yml 
-            # kubectl get nodes
+            status=$(/usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2>/dev/null)
+            if [ "$?" != 0 ]; then echo "Creating Cluster ...." ; eksctl create cluster -f infrastructure/k8s-cluster.yml ; else exit 0 ; fi
   pod-launcher:
     docker:
       - image: cimg/aws:2022.06
@@ -147,8 +144,8 @@ jobs:
             kubectl apply -f infrastructure/blue-services.yml
             kubectl apply -f infrastructure/ingress.yml
             kubectl expose deployment flask-blue --type=ClusterIP --name=service-cluser-ip
+            sleep 40
             kubectl get svc
-            #kubectl expose deployment sample-flask-deployment --type=NodePort --name=sample-flask-service-nodeport
 
 
 
