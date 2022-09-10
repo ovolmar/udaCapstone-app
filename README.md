@@ -19,7 +19,7 @@ To build this project locally follow the instructions below.
 ---
 Edit ***shell-vars.conf***
 Change your docker path and image name.
-Execute the following scripts in the folling order:
+Execute the following scripts in the following order to build your container locally and deploy to minikube.
 ```
  ./run_docker.sh  
  ./upload_docker.sh
@@ -30,3 +30,17 @@ Now you can check your deployment:
 kubectl get svc,deployment
 ```
 
+To verify that the app is working, write your deployment's IP into your browser using port 80, like
+`http://localhost:80` or `http://LOAD_BALANCER_IP:80` (according to your environment).
+
+Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP:80`
+
+### CI/CD Tools and Cloud Services
+
+* [Circle CI](https://www.circleci.com) - Cloud-based CI/CD service
+* [Amazon AWS](https://aws.amazon.com/) - Cloud services
+* [AWS EKS](https://aws.amazon.com/eks/) - Amazon Elastic Kubernetes Services
+* [AWS eksctl](https://eksctl.io) - The official CLI for Amazon EKS
+* [AWS CLI](https://aws.amazon.com/cli/) - Command-line tool for AWS
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/) - a command-line tool to control Kubernetes clusters
+* [Docker Hub](https://hub.docker.com/repository/docker/ovolmar/flask-blue) - Container images repository service
