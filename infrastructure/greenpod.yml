@@ -1,23 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-green-deployment
-  labels:
-    app: flask-green
+  name: flask-capstone
+
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: flask-green
+      app: flask-capstone
   template:
     metadata:
       labels:
-        app: flask-green
-        version: "1.10"
+        app: flask-capstone
+        version: "1.11"
+
     spec:
       containers:
-        - name:  flask-green
+        - name: flask-capstone-container
           image: ovolmar/flask-green:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+              protocol: TCP
+  strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1

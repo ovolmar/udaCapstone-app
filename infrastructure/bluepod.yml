@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-blue
+  name: flask-capstone
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: flask-blue
+      app: flask-capstone
   template:
     metadata:
       labels:
-        app: flask-blue
+        app: flask-capstone
+        version: "1.10"
 
     spec:
       containers:
-        - name: flask-blue-container
+        - name: flask-capstone-container
           image: ovolmar/flask-blue:latest
           imagePullPolicy: Always
           ports:

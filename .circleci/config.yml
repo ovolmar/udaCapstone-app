@@ -129,10 +129,9 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
-            eksctl create cluster -f infrastructure/k8s-cluster.yml
-            # /usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2> eks_status
-            # X=$(grep "No cluster" eks_status)
-            # if [[ $X =~ "No Cluster " ]]; then  eksctl create cluster -f infrastructure/k8s-cluster.yml ; else exit 0 ; fi
+            #eksctl create cluster -f infrastructure/k8s-cluster.yml
+            /usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2> eks_status
+            if [ $? != 0 ]; then  eksctl create cluster -f infrastructure/k8s-cluster.yml ; else exit 0 ; fi
   pod-launcher:
     docker:
       - image: cimg/aws:2022.06
@@ -148,9 +147,17 @@ jobs:
             kubectl expose deployment flask-blue --type=ClusterIP --name=service-cluser-ip
             sleep 40
             kubectl get svc
-
-
-
+  smoke-test:
+    docker:
+      - image: cimg/aws:2022.06
+    steps:
+      - checkout 
+      - run:
+          name: some testing
+          command: |
+            /usr/local/bin/aws eks update-kubeconfig --name udacapstone-k8s-cluster --region ${AWS_DEFAULT_REGION} 
+            STATUS=$(curl $(kubectl get svc  flask-capstone-loadbalancer | awk '{print $4}'|grep -v EXTERNAL-IP):8080 | grep Deployment )
+            if [ $? == 0 ]; then return 0 ; else return 1 ; fi
       # - run:
       #     name: get cluster credz
       #     command: |
@@ -188,3 +195,5 @@ workflows:
           requires: [buildcontainer]
       - pod-launcher:
           requires: [deploycluster]
+      - smoke-test:
+          requires: [pod-launcher]
