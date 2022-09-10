@@ -46,9 +46,9 @@ Alternatively, you can use `curl`: `curl localhost:80` or `curl LOAD_BALANCER_IP
 * [Docker Hub](https://hub.docker.com/repository/docker/ovolmar/flask-blue) - Container images repository service
 
 #### CicleCI Variables
-|| VARIABLE | VALUE |
+| VARIABLE | VALUE |
 | ------ | ------ |
-| AMI | _redacted_**|
+| AMI | _redacted_** |
 | ARN | _redacted_** |
 | AWS_ACCESS_KEY_ID | _redacted_** |
 | AWS_DEFAULT_REGION | _redacted_** |
