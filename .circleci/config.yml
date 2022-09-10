@@ -137,6 +137,11 @@ jobs:
       - image: circleci/python
     steps:
       - checkout
+    - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
       - run:
           name: running ansible
           command: |
