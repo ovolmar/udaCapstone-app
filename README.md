@@ -30,6 +30,7 @@ Now you can check your deployment:
 kubectl get svc,deployment
 ```
 
+To update the deployment you could either run kubectl apply -f infrastructure/greenpod.yml or change the container version in infrastructure/bluepod.yml
 
 
 To verify that the app is working, write your deployment's IP into your browser using port 80, like
