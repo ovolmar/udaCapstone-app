@@ -129,9 +129,9 @@ jobs:
       - run: 
           name: Build EKS cluster
           command: |
-            #/usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2>/dev/null
-            eksctl create cluster -f infrastructure/k8s-cluster.yml
-            #if [ $? != 0 ]; then  eksctl create cluster -f infrastructure/k8s-cluster.yml ; else exit 0 ; fi
+            /usr/local/bin/aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name udacapstone-k8s-cluster --query "cluster.status" 2>/dev/null
+            #eksctl create cluster -f infrastructure/k8s-cluster.yml
+            if [ $? != 0 ]; then  eksctl create cluster -f infrastructure/k8s-cluster.yml ; else exit 0 ; fi
   pod-launcher:
     docker:
       - image: cimg/aws:2022.06
